@@ -1,0 +1,19 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (change to master if needed)
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "projects"
+    label: "Research Projects"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Status", name: "status", widget: "select", options: ["Completed", "Ongoing"]}
+      - {label: "Date", name: "date", widget: "string"}
+      - {label: "Description", name: "body", widget: "markdown"}
+      - {label: "GitHub Link", name: "github", widget: "string", required: false}
