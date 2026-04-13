@@ -1,11 +1,13 @@
 backend:
   name: git-gateway
-  branch: main # Branch to update (change to master if needed)
+  branch: main
 
+# This handles all your photo uploads (Profile pic + Project media)
 media_folder: "public/images"
 public_folder: "/images"
 
 collections:
+  # 1. Your existing Projects Collection
   - name: "projects"
     label: "Research Projects"
     folder: "src/content/projects"
@@ -17,3 +19,26 @@ collections:
       - {label: "Date", name: "date", widget: "string"}
       - {label: "Description", name: "body", widget: "markdown"}
       - {label: "GitHub Link", name: "github", widget: "string", required: false}
+      # Adding an image field here so your projects can have screenshots!
+      - {label: "Project Image", name: "image", widget: "image", required: false}
+
+  # 2. NEW: Your Profile & Settings Collection
+  - name: "settings"
+    label: "Profile & Settings"
+    files:
+      - label: "Main Profile"
+        name: "profile"
+        file: "src/content/profile.json"
+        fields:
+          - {label: "Profile Photo", name: "avatar", widget: "image", required: false}
+          - {label: "Bio / Researcher Vision", name: "bio", widget: "markdown"}
+          - {label: "GitHub Profile URL", name: "github_url", widget: "string"}
+          - {label: "LinkedIn URL", name: "linkedin_url", widget: "string"}
+          - {label: "Email", name: "email", widget: "string"}
+          # The list widget lets you dynamically add/remove skills
+          - label: "Technical Skills"
+            name: "skills"
+            widget: "list"
+            fields:
+              - {label: "Category (e.g., AI & Automation)", name: "category", widget: "string"}
+              - {label: "Skills (Comma separated)", name: "items", widget: "string"}
