@@ -9,11 +9,13 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+// 1. IMPORT YOUR DYNAMIC PROFILE DATA
+import profileData from "../content/profile.json";
+
 export default function Home() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Prevent hydration mismatch for theme toggle
   useEffect(() => setMounted(true), []);
 
   return (
@@ -31,29 +33,45 @@ export default function Home() {
         )}
       </nav>
 
-      {/* Hero Section with Framer Motion */}
+      {/* Hero Section */}
       <motion.section 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="mb-24"
+        className="mb-24 flex flex-col-reverse md:flex-row gap-8 items-center md:items-start"
       >
-        <h2 className="text-4xl md:text-6xl font-extrabold mb-6">
-          The Researcher's Vision.
-        </h2>
-        <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
-          Dedicated open-source contributor, deep cybersecurity professional, and AI integration specialist. 
-          Specializing in vulnerability assessment, ethical hacking, network defense, and researching 
-          foundational architectures like AI-centric operating systems.
-        </p>
-        <div className="flex gap-4">
-          <a href="mailto:srujan07reddy@gmail.com" className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
-            Contact Me
-          </a>
-          <a href="https://linkedin.com/in/srujan-reddy-sandupatla" target="_blank" className="px-6 py-3 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition font-medium">
-            LinkedIn
-          </a>
+        <div className="flex-1">
+          <h2 className="text-4xl md:text-6xl font-extrabold mb-6">
+            The Researcher's Vision.
+          </h2>
+          {/* 2. DYNAMIC BIO */}
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
+            {profileData.bio}
+          </p>
+          <div className="flex gap-4 flex-wrap">
+            {/* 3. DYNAMIC URLS */}
+            <a href={`mailto:${profileData.email}`} className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+              Contact Me
+            </a>
+            <a href={profileData.linkedin_url} target="_blank" rel="noreferrer" className="px-6 py-3 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition font-medium">
+              LinkedIn
+            </a>
+            <a href={profileData.github_url} target="_blank" rel="noreferrer" className="px-6 py-3 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition font-medium">
+              GitHub
+            </a>
+          </div>
         </div>
+        
+        {/* 4. DYNAMIC AVATAR */}
+        {profileData.avatar && (
+          <div className="w-48 h-48 md:w-64 md:h-64 flex-shrink-0">
+            <img 
+              src={profileData.avatar} 
+              alt="Profile" 
+              className="w-full h-full object-cover rounded-full border-4 border-gray-200 dark:border-gray-800 shadow-lg"
+            />
+          </div>
+        )}
       </motion.section>
 
       {/* Technical Arsenal Section */}
@@ -67,67 +85,23 @@ export default function Home() {
           Technical & Research Arsenal
         </h3>
         <ul className="space-y-4 text-gray-700 dark:text-gray-300 font-mono text-sm">
-          <li><span className="font-bold text-blue-500">AI & Automation:</span> Prompt Engineering, n8n, Fine-tuning agents, Building agents</li>
-          <li><span className="font-bold text-blue-500">Cybersecurity:</span> Nmap, Burp Suite, Metasploit, Wireshark, Splunk, Autopsy, Hashcat</li>
-          <li><span className="font-bold text-blue-500">OS & Cloud:</span> Kali Linux, Ubuntu, AWS/Azure Fundamentals</li>
+          {/* 5. DYNAMIC SKILLS MAPPING */}
+          {profileData.skills.map((skillGroup, index) => (
+            <li key={index}>
+              <span className="font-bold text-blue-500">{skillGroup.category}:</span> {skillGroup.items}
+            </li>
+          ))}
         </ul>
       </motion.section>
 
-      {/* Placeholder for Swiper.js Project Carousel */}
-      {/* Swiper.js Project Carousel */}
+      {/* Placeholder for Dynamic Swiper.js Project Carousel (We will wire this up next!) */}
       <section className="mb-24">
         <h3 className="text-2xl font-bold border-b border-gray-300 dark:border-gray-700 pb-2 mb-6">
           Open-Source & AI Initiatives
         </h3>
-        
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
-          spaceBetween={30}
-          slidesPerView={1}
-          navigation
-          pagination={{ clickable: true }}
-          autoplay={{ delay: 5000 }}
-          breakpoints={{
-            768: { slidesPerView: 2 },
-          }}
-          className="pb-12"
-        >
-          {/* Slide 1 */}
-          <SwiperSlide>
-            <div className="p-8 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl h-full shadow-sm hover:shadow-md transition">
-              <span className="text-xs font-bold text-green-500 uppercase tracking-wider mb-2 block">Ongoing</span>
-              <h4 className="text-xl font-bold mb-3">AI-Powered ERP Platform</h4>
-              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                Architecting an AI-driven ERP integrating Gemini AI, Perplexity, and GitHub Copilot for optimized workflows.
-              </p>
-              <span className="text-xs font-mono bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded">PostgreSQL / JavaScript</span>
-            </div>
-          </SwiperSlide>
-
-          {/* Slide 2 */}
-          <SwiperSlide>
-            <div className="p-8 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl h-full shadow-sm hover:shadow-md transition">
-              <span className="text-xs font-bold text-blue-500 uppercase tracking-wider mb-2 block">Completed</span>
-              <h4 className="text-xl font-bold mb-3">Linux Hardening Lab</h4>
-              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                Configured a secure Linux environment applying foundational security practices, firewall setups, and SSH hardening.
-              </p>
-              <span className="text-xs font-mono bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded">Kali Linux / Bash</span>
-            </div>
-          </SwiperSlide>
-
-          {/* Slide 3 */}
-          <SwiperSlide>
-            <div className="p-8 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl h-full shadow-sm hover:shadow-md transition">
-              <span className="text-xs font-bold text-green-500 uppercase tracking-wider mb-2 block">Ongoing</span>
-              <h4 className="text-xl font-bold mb-3">BIOS Tracking for Theft</h4>
-              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                Developing a BIOS-based location tracker utilizing a network card API with a live visual dashboard.
-              </p>
-              <span className="text-xs font-mono bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded">Network API / Dashboard</span>
-            </div>
-          </SwiperSlide>
-        </Swiper>
+        <div className="p-12 bg-gray-100 dark:bg-gray-900 rounded-xl text-center border border-dashed border-gray-400 dark:border-gray-600">
+          <p className="text-gray-500">We will connect the Markdown project files to the Swiper carousel next!</p>
+        </div>
       </section>
 
     </main>
