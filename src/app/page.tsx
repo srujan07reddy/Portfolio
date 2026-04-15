@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
@@ -10,137 +9,206 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-coverflow';
 
+// Pulling your dynamic links/avatar from the CMS
 import profileData from "../content/profile.json";
 
-// Animation Variants for "Staggered" entry
 const fadeInUp = {
-  hidden: { opacity: 0, y: 60 },
+  hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
 
 const staggerContainer = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
+  visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
 };
 
 export default function Home() {
-  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
   return (
-    <main className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white selection:bg-blue-500 selection:text-white">
+    // Forced Matte Black Background with Cyber Accents
+    <main className="min-h-screen bg-[#050505] text-gray-300 selection:bg-cyan-500 selection:text-black font-sans">
       
-      {/* 1. ANIMATED NAVBAR */}
+      {/* --- TOP NAV: ENCRYPTED SIGNAL LINE --- */}
       <motion.nav 
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className="fixed top-0 w-full z-50 backdrop-blur-md bg-white/70 dark:bg-black/70 border-b border-gray-200 dark:border-gray-800 px-8 py-4 flex justify-between items-center"
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="fixed top-0 w-full z-50 bg-[#050505]/80 backdrop-blur-md border-b border-gray-800/50 px-8 py-5 flex justify-between items-center"
       >
-        <motion.h1 whileHover={{ scale: 1.1 }} className="text-xl font-black tracking-tighter cursor-pointer">
-          SRUJAN_REDDY <span className="text-blue-600">.</span>
-        </motion.h1>
-        <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:rotate-12 transition-transform">
-          {theme === "dark" ? "☀️" : "🌙"}
-        </button>
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+          <h1 className="text-sm font-mono font-bold tracking-widest text-gray-100">
+            SRUJAN<span className="text-cyan-400">_REDDY</span>
+          </h1>
+        </div>
+        <div className="hidden md:flex gap-6 font-mono text-xs text-gray-500 uppercase">
+          <span className="hover:text-cyan-400 cursor-pointer transition">Status: Secure</span>
+          <span className="hover:text-cyan-400 cursor-pointer transition">Loc: Chennai</span>
+        </div>
       </motion.nav>
 
-      <div className="pt-32 p-8 md:p-24 max-w-6xl mx-auto">
+      <div className="pt-32 p-8 md:p-24 max-w-6xl mx-auto space-y-32">
         
-        {/* 2. HERO SECTION WITH DEEP RESEARCHER VIBE */}
+        {/* --- 1. HERO: COMMAND CENTER --- */}
         <motion.section 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={staggerContainer}
-          className="mb-32 flex flex-col md:flex-row items-center gap-12"
+          initial="hidden" animate="visible" variants={staggerContainer}
+          className="relative border-l border-cyan-500/20 pl-8 md:pl-12"
         >
-          <motion.div variants={fadeInUp} className="flex-1">
-            <h2 className="text-5xl md:text-8xl font-black mb-8 leading-none tracking-tight">
-              DEEP <br/> <span className="text-blue-600">RESEARCHER.</span>
-            </h2>
-            <p className="text-xl text-gray-500 dark:text-gray-400 max-w-xl leading-relaxed mb-10">
-              {profileData.bio}
-            </p>
-            <div className="flex gap-6">
-              <motion.a whileHover={{ y: -5 }} href={`mailto:${profileData.email}`} className="px-8 py-4 bg-blue-600 rounded-full font-bold shadow-lg shadow-blue-500/20">Contact</motion.a>
-              <motion.a whileHover={{ y: -5 }} href={profileData.github_url} className="px-8 py-4 border border-gray-700 rounded-full font-bold">GitHub</motion.a>
-            </div>
+          {/* Terminal Intro */}
+          <motion.div variants={fadeInUp} className="flex items-center gap-2 mb-6 font-mono text-xs text-cyan-400">
+            <span>&gt; Initializing secure innovation profile</span>
+            <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-2 h-4 bg-cyan-400 inline-block"></motion.span>
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-            <img src={profileData.avatar} className="relative w-64 h-64 md:w-80 md:h-80 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500 border-2 border-white/10" alt="Srujan Reddy" />
+          <motion.h2 variants={fadeInUp} className="text-5xl md:text-7xl font-black mb-4 text-white tracking-tight">
+            Srujan Reddy.
+          </motion.h2>
+          
+          <motion.h3 variants={fadeInUp} className="text-xl md:text-2xl font-mono text-purple-400 mb-6">
+            Cybersecurity | Automation | Innovation Strategy
+          </motion.h3>
+
+          <motion.p variants={fadeInUp} className="text-lg md:text-xl text-gray-400 max-w-2xl leading-relaxed mb-8">
+            Building secure systems, automating workflows, and helping startups turn ideas into scalable digital products.
+          </motion.p>
+
+          <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 mb-10">
+            <a href="#projects" className="px-6 py-3 bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 rounded-md font-mono text-sm hover:bg-cyan-500 hover:text-black transition-all">
+              [ View Operations ]
+            </a>
+            <a href={`mailto:${profileData.email}`} className="px-6 py-3 bg-transparent text-gray-300 border border-gray-700 rounded-md font-mono text-sm hover:border-gray-400 transition-all">
+              Initiate Contact
+            </a>
+          </motion.div>
+
+          <motion.div variants={fadeInUp} className="font-mono text-xs text-gray-600 flex flex-wrap gap-3 uppercase tracking-wider">
+            <span>Linux</span> • <span>Python</span> • <span className="text-purple-400/70">n8n</span> • <span>Burp Suite</span> • <span>Open Source</span> • <span className="text-cyan-400/70">Startup Consulting</span>
           </motion.div>
         </motion.section>
 
-        {/* 3. SKILLS GRID WITH HOVER ANIMATIONS */}
-        <motion.section 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={staggerContainer}
-          className="mb-32"
-        >
-          <h3 className="text-sm font-mono text-blue-500 uppercase tracking-widest mb-4">Technical Arsenal</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {profileData.skills.map((skill, i) => (
-              <motion.div 
-                key={i}
-                variants={fadeInUp}
-                whileHover={{ scale: 1.02 }}
-                className="p-6 bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 rounded-2xl"
-              >
-                <h4 className="font-bold text-lg mb-2 text-blue-500">{skill.category}</h4>
-                <p className="text-gray-600 dark:text-gray-400 font-mono text-sm">{skill.items}</p>
-              </motion.div>
-            ))}
+        {/* --- 2. ABOUT: IDENTITY & STATS --- */}
+        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 gap-16">
+          <motion.div variants={fadeInUp}>
+            <h3 className="font-mono text-sm text-cyan-400 mb-4 border-b border-gray-800 pb-2">01 // IDENTITY</h3>
+            <p className="text-gray-400 leading-relaxed text-lg">
+              I’m a cybersecurity-focused technologist who combines security thinking, Linux workflows, automation systems, and startup problem-solving. I work at the intersection of defense, digital transformation, and innovation, building solutions that are practical, scalable, and business-aware.
+            </p>
+          </motion.div>
+          <motion.div variants={fadeInUp} className="grid grid-cols-2 gap-4">
+             <div className="p-6 bg-gray-900/50 border border-gray-800 rounded-lg"><h4 className="text-3xl font-bold text-white mb-1">06+</h4><p className="text-xs font-mono text-gray-500 uppercase">Projects Built</p></div>
+             <div className="p-6 bg-gray-900/50 border border-gray-800 rounded-lg"><h4 className="text-3xl font-bold text-white mb-1">2025</h4><p className="text-xs font-mono text-cyan-500 uppercase">Open Source Entry</p></div>
+             <div className="p-6 bg-gray-900/50 border border-gray-800 rounded-lg"><h4 className="text-3xl font-bold text-white mb-1">IEEE</h4><p className="text-xs font-mono text-gray-500 uppercase">Secretary</p></div>
+             <div className="p-6 bg-gray-900/50 border border-gray-800 rounded-lg"><h4 className="text-3xl font-bold text-white mb-1">02</h4><p className="text-xs font-mono text-gray-500 uppercase">Hackathons</p></div>
+          </motion.div>
+        </motion.section>
+
+        {/* --- 3. EXPERTISE: CAPABILITY MATRIX --- */}
+        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}>
+          <h3 className="font-mono text-sm text-cyan-400 mb-8 border-b border-gray-800 pb-2">02 // CAPABILITY MATRIX</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <motion.div variants={fadeInUp} className="p-8 border border-gray-800 hover:border-red-500/30 bg-gradient-to-b from-gray-900/50 to-transparent rounded-xl group transition-all">
+              <h4 className="text-xl font-bold text-white mb-3 group-hover:text-red-400 transition-colors">Cybersecurity Operations</h4>
+              <p className="text-sm text-gray-500">Vulnerability analysis, web security basics, network defense, Linux hardening, and reconnaissance workflows.</p>
+            </motion.div>
+            <motion.div variants={fadeInUp} className="p-8 border border-gray-800 hover:border-purple-500/30 bg-gradient-to-b from-gray-900/50 to-transparent rounded-xl group transition-all">
+              <h4 className="text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors">Automation & AI Workflows</h4>
+              <p className="text-sm text-gray-500">n8n automation, prompt engineering, AI-assisted systems, and business workflow optimization.</p>
+            </motion.div>
+            <motion.div variants={fadeInUp} className="p-8 border border-gray-800 hover:border-cyan-500/30 bg-gradient-to-b from-gray-900/50 to-transparent rounded-xl group transition-all">
+              <h4 className="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">Open Source Ecosystems</h4>
+              <p className="text-sm text-gray-500">GitHub collaboration, community-driven learning, and technical event participation.</p>
+            </motion.div>
+            <motion.div variants={fadeInUp} className="p-8 border border-gray-800 hover:border-green-500/30 bg-gradient-to-b from-gray-900/50 to-transparent rounded-xl group transition-all">
+              <h4 className="text-xl font-bold text-white mb-3 group-hover:text-green-400 transition-colors">Innovation & Consulting</h4>
+              <p className="text-sm text-gray-500">Translating technical ideas into startup-ready, secure, and scalable digital solutions.</p>
+            </motion.div>
           </div>
         </motion.section>
 
-        {/* 4. PREMIUM COVERFLOW SLIDER FOR PROJECTS */}
-        <motion.section 
-           initial={{ opacity: 0 }}
-           whileInView={{ opacity: 1 }}
-           className="mb-32"
-        >
-          <h3 className="text-sm font-mono text-blue-500 uppercase tracking-widest mb-12">Featured Initiatives</h3>
+        {/* --- 4. PROJECTS: SECURE OPERATIONS --- */}
+        <motion.section id="projects" initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}>
+          <h3 className="font-mono text-sm text-cyan-400 mb-8 border-b border-gray-800 pb-2">03 // FEATURED OPERATIONS</h3>
           <Swiper
-            effect={'coverflow'}
-            grabCursor={true}
-            centeredSlides={true}
-            slidesPerView={'auto'}
-            coverflowEffect={{
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: true,
-            }}
-            autoplay={{ delay: 3000 }}
-            modules={[EffectCoverflow, Autoplay, Pagination]}
+            effect={'coverflow'} grabCursor={true} centeredSlides={true} slidesPerView={'auto'}
+            coverflowEffect={{ rotate: 30, stretch: 0, depth: 100, modifier: 1, slideShadows: false }}
+            modules={[EffectCoverflow, Pagination]}
             className="w-full py-10"
           >
-            {/* Example Slide - You can map these from your dynamic projects later */}
+            {/* Project Card 1 */}
             <SwiperSlide className="max-w-md">
-              <div className="bg-gray-900 rounded-3xl overflow-hidden border border-gray-800 p-8 h-[400px] flex flex-col justify-end">
-                <h4 className="text-2xl font-bold mb-2">BIOS Tracking System</h4>
-                <p className="text-gray-400 mb-6">Deep research into hardware-level security and real-time location tracking.</p>
-                <div className="flex gap-2">
-                  <span className="text-xs bg-blue-500/10 text-blue-500 px-3 py-1 rounded-full border border-blue-500/20">CyberSecurity</span>
-                  <span className="text-xs bg-cyan-500/10 text-cyan-500 px-3 py-1 rounded-full border border-cyan-500/20">Firmware</span>
+              <div className="bg-[#0a0a0a] border border-gray-800 hover:border-cyan-500/50 rounded-2xl p-8 h-[420px] flex flex-col justify-between transition-all">
+                <div>
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="text-xs font-mono px-2 py-1 bg-red-500/10 text-red-400 rounded">Hardware/Sec</span>
+                    <span className="text-xs font-mono text-gray-600">Active</span>
+                  </div>
+                  <h4 className="text-2xl font-bold text-white mb-3">BIOS Theft Tracking</h4>
+                  <p className="text-sm text-gray-400 mb-4">Developing a BIOS-based location tracker utilizing a network card API to visualize real-time device mapping.</p>
+                  <div className="text-xs text-gray-500"><strong className="text-gray-300">Impact:</strong> Prevents unauthorized hardware fencing via persistent tracking.</div>
                 </div>
+                <div className="font-mono text-xs text-cyan-500">API • Network Defense • Dashboards</div>
               </div>
             </SwiperSlide>
-            {/* Add more SwiperSlides here */}
+
+             {/* Project Card 2 */}
+             <SwiperSlide className="max-w-md">
+              <div className="bg-[#0a0a0a] border border-gray-800 hover:border-cyan-500/50 rounded-2xl p-8 h-[420px] flex flex-col justify-between transition-all">
+                <div>
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="text-xs font-mono px-2 py-1 bg-purple-500/10 text-purple-400 rounded">AI/Automation</span>
+                    <span className="text-xs font-mono text-gray-600">Active</span>
+                  </div>
+                  <h4 className="text-2xl font-bold text-white mb-3">AI-Powered ERP Platform</h4>
+                  <p className="text-sm text-gray-400 mb-4">Integrating Gemini AI and GitHub Copilot to enhance content validation and automate academic workflows.</p>
+                  <div className="text-xs text-gray-500"><strong className="text-gray-300">Impact:</strong> Scales operational efficiency for educational institutions.</div>
+                </div>
+                <div className="font-mono text-xs text-cyan-500">PostgreSQL • Gemini AI • JavaScript</div>
+              </div>
+            </SwiperSlide>
           </Swiper>
+        </motion.section>
+
+        {/* --- 5. AUTOMATION LAB --- */}
+        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}>
+          <h3 className="font-mono text-sm text-cyan-400 mb-8 border-b border-gray-800 pb-2">04 // OPEN SOURCE & AUTOMATION LAB</h3>
+          <p className="text-gray-400 mb-8">Exploring open ecosystems, automating repetitive workflows, and building practical AI-assisted systems.</p>
+          <div className="flex flex-wrap gap-4">
+            <span className="px-4 py-2 bg-gray-900 border border-gray-700 text-sm font-mono rounded-full text-gray-300 hover:border-cyan-400 transition-colors">_n8n Workflow Experiments</span>
+            <span className="px-4 py-2 bg-gray-900 border border-gray-700 text-sm font-mono rounded-full text-gray-300 hover:border-cyan-400 transition-colors">_Linux Scripting Practice</span>
+            <span className="px-4 py-2 bg-gray-900 border border-gray-700 text-sm font-mono rounded-full text-gray-300 hover:border-cyan-400 transition-colors">_Agent Prompt Engineering</span>
+            <span className="px-4 py-2 bg-gray-900 border border-gray-700 text-sm font-mono rounded-full text-gray-300 hover:border-cyan-400 transition-colors">_Community Contributions</span>
+          </div>
+        </motion.section>
+
+        {/* --- 6. CRACK DEVELOPERS / CONSULTING --- */}
+        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer} className="bg-gradient-to-r from-gray-900 to-[#050505] border border-gray-800 p-8 md:p-12 rounded-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 blur-[100px] rounded-full pointer-events-none"></div>
+          <h3 className="font-mono text-sm text-cyan-400 mb-4">05 // BUSINESS ALIGNMENT</h3>
+          <h4 className="text-3xl font-bold text-white mb-4">Working with Crack Developers</h4>
+          <p className="text-gray-400 leading-relaxed mb-6 max-w-3xl">
+            I contribute to innovation-focused thinking around secure systems, automation-led workflows, and business-centered technology strategy in alignment with <strong className="text-gray-200">Crack Developers’</strong> mission of helping businesses build scalable digital solutions.
+          </p>
+          <p className="text-gray-500 mb-8 text-sm max-w-2xl">
+            I help early-stage teams and businesses think through secure product design, digital operations, and innovation strategy—bridging technical execution with real business needs.
+          </p>
+          <a href={profileData.linkedin_url} target="_blank" rel="noreferrer" className="inline-block px-6 py-3 bg-white text-black font-bold text-sm rounded-md hover:bg-gray-200 transition-colors">
+            Discuss a Project
+          </a>
+        </motion.section>
+
+        {/* --- 7. SECURE CONTACT --- */}
+        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer} className="text-center pb-20">
+          <h3 className="font-mono text-sm text-cyan-400 mb-6">06 // INITIATE COMMS</h3>
+          <p className="text-gray-400 mb-8 max-w-xl mx-auto">
+            Open to cybersecurity projects, automation workflows, startup consulting, and innovation collaborations.
+          </p>
+          <div className="flex justify-center gap-6">
+            <a href={`mailto:${profileData.email}`} className="px-8 py-4 bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 rounded-md font-mono hover:bg-cyan-500 hover:text-black transition-all shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+              Establish Secure Connection
+            </a>
+          </div>
         </motion.section>
 
       </div>
