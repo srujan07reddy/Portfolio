@@ -4,106 +4,146 @@ import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import 'swiper/css/effect-coverflow';
 
-// 1. IMPORT YOUR DYNAMIC PROFILE DATA
 import profileData from "../content/profile.json";
+
+// Animation Variants for "Staggered" entry
+const fadeInUp = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
 
 export default function Home() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
 
   return (
-    <main className="min-h-screen p-8 md:p-24 max-w-5xl mx-auto">
-      {/* Navigation & Theme Toggle */}
-      <nav className="flex justify-between items-center mb-16">
-        <h1 className="text-xl font-bold tracking-tighter">Srujan Reddy_</h1>
-        {mounted && (
-          <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded-md text-sm font-mono hover:bg-gray-300 dark:hover:bg-gray-700 transition"
-          >
-            Toggle {theme === "dark" ? "Light" : "Dark"} Mode
-          </button>
-        )}
-      </nav>
-
-      {/* Hero Section */}
-      <motion.section 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="mb-24 flex flex-col-reverse md:flex-row gap-8 items-center md:items-start"
+    <main className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white selection:bg-blue-500 selection:text-white">
+      
+      {/* 1. ANIMATED NAVBAR */}
+      <motion.nav 
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        className="fixed top-0 w-full z-50 backdrop-blur-md bg-white/70 dark:bg-black/70 border-b border-gray-200 dark:border-gray-800 px-8 py-4 flex justify-between items-center"
       >
-        <div className="flex-1">
-          <h2 className="text-4xl md:text-6xl font-extrabold mb-6">
-            The Researcher's Vision.
-          </h2>
-          {/* 2. DYNAMIC BIO */}
-          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
-            {profileData.bio}
-          </p>
-          <div className="flex gap-4 flex-wrap">
-            {/* 3. DYNAMIC URLS */}
-            <a href={`mailto:${profileData.email}`} className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
-              Contact Me
-            </a>
-            <a href={profileData.linkedin_url} target="_blank" rel="noreferrer" className="px-6 py-3 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition font-medium">
-              LinkedIn
-            </a>
-            <a href={profileData.github_url} target="_blank" rel="noreferrer" className="px-6 py-3 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition font-medium">
-              GitHub
-            </a>
-          </div>
-        </div>
+        <motion.h1 whileHover={{ scale: 1.1 }} className="text-xl font-black tracking-tighter cursor-pointer">
+          SRUJAN_REDDY <span className="text-blue-600">.</span>
+        </motion.h1>
+        <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:rotate-12 transition-transform">
+          {theme === "dark" ? "☀️" : "🌙"}
+        </button>
+      </motion.nav>
+
+      <div className="pt-32 p-8 md:p-24 max-w-6xl mx-auto">
         
-        {/* 4. DYNAMIC AVATAR */}
-        {profileData.avatar && (
-          <div className="w-48 h-48 md:w-64 md:h-64 flex-shrink-0">
-            <img 
-              src={profileData.avatar} 
-              alt="Profile" 
-              className="w-full h-full object-cover rounded-full border-4 border-gray-200 dark:border-gray-800 shadow-lg"
-            />
+        {/* 2. HERO SECTION WITH DEEP RESEARCHER VIBE */}
+        <motion.section 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+          className="mb-32 flex flex-col md:flex-row items-center gap-12"
+        >
+          <motion.div variants={fadeInUp} className="flex-1">
+            <h2 className="text-5xl md:text-8xl font-black mb-8 leading-none tracking-tight">
+              DEEP <br/> <span className="text-blue-600">RESEARCHER.</span>
+            </h2>
+            <p className="text-xl text-gray-500 dark:text-gray-400 max-w-xl leading-relaxed mb-10">
+              {profileData.bio}
+            </p>
+            <div className="flex gap-6">
+              <motion.a whileHover={{ y: -5 }} href={`mailto:${profileData.email}`} className="px-8 py-4 bg-blue-600 rounded-full font-bold shadow-lg shadow-blue-500/20">Contact</motion.a>
+              <motion.a whileHover={{ y: -5 }} href={profileData.github_url} className="px-8 py-4 border border-gray-700 rounded-full font-bold">GitHub</motion.a>
+            </div>
+          </motion.div>
+
+          <motion.div variants={fadeInUp} className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+            <img src={profileData.avatar} className="relative w-64 h-64 md:w-80 md:h-80 rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500 border-2 border-white/10" alt="Srujan Reddy" />
+          </motion.div>
+        </motion.section>
+
+        {/* 3. SKILLS GRID WITH HOVER ANIMATIONS */}
+        <motion.section 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={staggerContainer}
+          className="mb-32"
+        >
+          <h3 className="text-sm font-mono text-blue-500 uppercase tracking-widest mb-4">Technical Arsenal</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {profileData.skills.map((skill, i) => (
+              <motion.div 
+                key={i}
+                variants={fadeInUp}
+                whileHover={{ scale: 1.02 }}
+                className="p-6 bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 rounded-2xl"
+              >
+                <h4 className="font-bold text-lg mb-2 text-blue-500">{skill.category}</h4>
+                <p className="text-gray-600 dark:text-gray-400 font-mono text-sm">{skill.items}</p>
+              </motion.div>
+            ))}
           </div>
-        )}
-      </motion.section>
+        </motion.section>
 
-      {/* Technical Arsenal Section */}
-      <motion.section 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="mb-24"
-      >
-        <h3 className="text-2xl font-bold border-b border-gray-300 dark:border-gray-700 pb-2 mb-6">
-          Technical & Research Arsenal
-        </h3>
-        <ul className="space-y-4 text-gray-700 dark:text-gray-300 font-mono text-sm">
-          {/* 5. DYNAMIC SKILLS MAPPING */}
-          {profileData.skills.map((skillGroup, index) => (
-            <li key={index}>
-              <span className="font-bold text-blue-500">{skillGroup.category}:</span> {skillGroup.items}
-            </li>
-          ))}
-        </ul>
-      </motion.section>
+        {/* 4. PREMIUM COVERFLOW SLIDER FOR PROJECTS */}
+        <motion.section 
+           initial={{ opacity: 0 }}
+           whileInView={{ opacity: 1 }}
+           className="mb-32"
+        >
+          <h3 className="text-sm font-mono text-blue-500 uppercase tracking-widest mb-12">Featured Initiatives</h3>
+          <Swiper
+            effect={'coverflow'}
+            grabCursor={true}
+            centeredSlides={true}
+            slidesPerView={'auto'}
+            coverflowEffect={{
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            }}
+            autoplay={{ delay: 3000 }}
+            modules={[EffectCoverflow, Autoplay, Pagination]}
+            className="w-full py-10"
+          >
+            {/* Example Slide - You can map these from your dynamic projects later */}
+            <SwiperSlide className="max-w-md">
+              <div className="bg-gray-900 rounded-3xl overflow-hidden border border-gray-800 p-8 h-[400px] flex flex-col justify-end">
+                <h4 className="text-2xl font-bold mb-2">BIOS Tracking System</h4>
+                <p className="text-gray-400 mb-6">Deep research into hardware-level security and real-time location tracking.</p>
+                <div className="flex gap-2">
+                  <span className="text-xs bg-blue-500/10 text-blue-500 px-3 py-1 rounded-full border border-blue-500/20">CyberSecurity</span>
+                  <span className="text-xs bg-cyan-500/10 text-cyan-500 px-3 py-1 rounded-full border border-cyan-500/20">Firmware</span>
+                </div>
+              </div>
+            </SwiperSlide>
+            {/* Add more SwiperSlides here */}
+          </Swiper>
+        </motion.section>
 
-      {/* Placeholder for Dynamic Swiper.js Project Carousel (We will wire this up next!) */}
-      <section className="mb-24">
-        <h3 className="text-2xl font-bold border-b border-gray-300 dark:border-gray-700 pb-2 mb-6">
-          Open-Source & AI Initiatives
-        </h3>
-        <div className="p-12 bg-gray-100 dark:bg-gray-900 rounded-xl text-center border border-dashed border-gray-400 dark:border-gray-600">
-          <p className="text-gray-500">We will connect the Markdown project files to the Swiper carousel next!</p>
-        </div>
-      </section>
-
+      </div>
     </main>
   );
 }
