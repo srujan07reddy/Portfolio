@@ -19,8 +19,7 @@ collections:
       - {label: "Description", name: "description", widget: "text"}
       - {label: "Impact", name: "impact", widget: "string"}
       - {label: "Core Tools (Comma separated)", name: "tools", widget: "string"}
-
-  # 2. NEW: SECTIONED SITE CONTENT
+# 2. SECTIONED SITE CONTENT
   - name: "settings"
     label: "Site Content (Edit Everything)"
     files:
@@ -35,7 +34,7 @@ collections:
             fields:
               - {label: "Profile Image", name: "avatar", widget: "image", required: false}
               - {label: "Main Title (Name)", name: "name", widget: "string"}
-              - {label: "Animated Roles (Comma separated)", name: "roles", widget: "string", hint: "e.g., Cybersecurity, Automation, Innovation"}
+              - {label: "Animated Roles (Comma separated)", name: "roles", widget: "string"}
               - {label: "Hero Subtitle", name: "subtitle", widget: "text"}
               - {label: "Bottom Tags (Comma separated)", name: "tags", widget: "string"}
           
@@ -48,6 +47,39 @@ collections:
               - {label: "Main Biography", name: "bio", widget: "text"}
               - {label: "Projects Built", name: "stat_projects", widget: "string"}
               - {label: "Leadership Role", name: "stat_leadership", widget: "string"}
+              
+          # CORE DOMAINS (NEW)
+          - label: "03. Core Domains"
+            name: "domains"
+            widget: "object"
+            fields:
+              - {label: "Section Title", name: "title", widget: "string"}
+              - label: "Domain List"
+                name: "list"
+                widget: "list"
+                fields:
+                  - {label: "Domain Name", name: "name", widget: "string"}
+                  - {label: "Description", name: "description", widget: "text"}
+
+          # LAB & EXPERIMENTS (NEW)
+          - label: "04. Lab & Experiments"
+            name: "lab"
+            widget: "object"
+            fields:
+              - {label: "Section Title", name: "title", widget: "string"}
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "Experiment Tags (Comma separated)", name: "tags", widget: "string"}
+
+          # CRACK DEVELOPERS / CONSULTING (NEW)
+          - label: "05. Crack Developers & Consulting"
+            name: "consulting"
+            widget: "object"
+            fields:
+              - {label: "Section Title", name: "title", widget: "string"}
+              - {label: "Headline", name: "headline", widget: "string"}
+              - {label: "Main Body", name: "body", widget: "text"}
+              - {label: "Sub Body", name: "sub_body", widget: "text"}
+              - {label: "CTA Text", name: "cta_text", widget: "string"}
               
           # GLOBAL LINKS
           - label: "Global Links & Contact"

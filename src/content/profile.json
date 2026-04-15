@@ -12,6 +12,39 @@
     "stat_projects": "06+",
     "stat_leadership": "IEEE Secretary"
   },
+  "domains": {
+    "title": "02 // CORE DOMAINS",
+    "list": [
+      {
+        "name": "Cybersecurity Operations",
+        "description": "Vulnerability analysis, web security basics, network defense, Linux hardening, and reconnaissance workflows."
+      },
+      {
+        "name": "Automation & AI Workflows",
+        "description": "n8n automation, prompt engineering, AI-assisted systems, and business workflow optimization."
+      },
+      {
+        "name": "Open Source Ecosystems",
+        "description": "GitHub collaboration, community-driven learning, and technical event participation."
+      },
+      {
+        "name": "Innovation & Consulting",
+        "description": "Translating technical ideas into startup-ready, secure, and scalable digital solutions."
+      }
+    ]
+  },
+  "lab": {
+    "title": "04 // OPEN SOURCE & AUTOMATION LAB",
+    "description": "Exploring open ecosystems, automating repetitive workflows, and building practical AI-assisted systems.",
+    "tags": "_n8n Workflow Experiments, _Linux Scripting Practice, _Agent Prompt Engineering, _Community Contributions"
+  },
+  "consulting": {
+    "title": "05 // BUSINESS ALIGNMENT & CONSULTING",
+    "headline": "Working with Crack Developers",
+    "body": "I contribute to innovation-focused thinking around secure systems, automation-led workflows, and business-centered technology strategy in alignment with Crack Developers’ mission of helping businesses build scalable digital solutions.",
+    "sub_body": "I help early-stage teams and businesses think through secure product design, digital operations, and innovation strategy—bridging technical execution with real business needs.",
+    "cta_text": "Discuss a Project"
+  },
   "links": {
     "email": "srujan07reddy@gmail.com",
     "linkedin": "https://linkedin.com/in/srujan-reddy-sandupatla",
