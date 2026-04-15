@@ -6,7 +6,6 @@ media_folder: "public/images"
 public_folder: "/images"
 
 collections:
-
   # 1. YOUR PROJECTS (Keep this as it is)
   - name: "projects"
     label: "Research Operations"
@@ -28,6 +27,22 @@ collections:
         name: "profile"
         file: "src/content/profile.json"
         fields:
+          - label: "00. Site Engine (Templates & Themes)"
+            name: "engine"
+            widget: "object"
+            fields:
+              - label: "Main Template"
+                name: "template"
+                widget: "select"
+                options: ["Researcher", "Minimalist", "Corporate"]
+              - label: "Hero Sub-Template"
+                name: "hero_style"
+                widget: "select"
+                options: ["Animated Typing", "Static Professional"]
+              - label: "Color Theme"
+                name: "theme_color"
+                widget: "select"
+                options: ["Cyan", "Violet", "Emerald", "Ruby"]
           # HERO SECTION
           - label: "01. Hero Section"
             name: "hero"
