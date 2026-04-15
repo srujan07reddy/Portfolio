@@ -2,43 +2,58 @@ backend:
   name: git-gateway
   branch: main
 
-# This handles all your photo uploads (Profile pic + Project media)
 media_folder: "public/images"
 public_folder: "/images"
 
 collections:
-  # 1. Your existing Projects Collection
+  # 1. YOUR PROJECTS (Keep this as it is)
   - name: "projects"
-    label: "Research Projects"
+    label: "Research Operations"
     folder: "src/content/projects"
     create: true
     slug: "{{slug}}"
     fields:
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Status", name: "status", widget: "select", options: ["Completed", "Ongoing"]}
-      - {label: "Date", name: "date", widget: "string"}
-      - {label: "Description", name: "body", widget: "markdown"}
-      - {label: "GitHub Link", name: "github", widget: "string", required: false}
-      # Adding an image field here so your projects can have screenshots!
-      - {label: "Project Image", name: "image", widget: "image", required: false}
+      - {label: "Domain", name: "domain", widget: "select", options: ["Hardware/Sec", "AI/Automation", "Consulting"]}
+      - {label: "Status", name: "status", widget: "select", options: ["Active", "Completed"]}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Impact", name: "impact", widget: "string"}
+      - {label: "Core Tools (Comma separated)", name: "tools", widget: "string"}
 
-  # 2. NEW: Your Profile & Settings Collection
+  # 2. NEW: SECTIONED SITE CONTENT
   - name: "settings"
-    label: "Profile & Settings"
+    label: "Site Content (Edit Everything)"
     files:
-      - label: "Main Profile"
+      - label: "Landing Page Data"
         name: "profile"
         file: "src/content/profile.json"
         fields:
-          - {label: "Profile Photo", name: "avatar", widget: "image", required: false}
-          - {label: "Bio / Researcher Vision", name: "bio", widget: "markdown"}
-          - {label: "GitHub Profile URL", name: "github_url", widget: "string"}
-          - {label: "LinkedIn URL", name: "linkedin_url", widget: "string"}
-          - {label: "Email", name: "email", widget: "string"}
-          # The list widget lets you dynamically add/remove skills
-          - label: "Technical Skills"
-            name: "skills"
-            widget: "list"
+          # HERO SECTION
+          - label: "01. Hero Section"
+            name: "hero"
+            widget: "object"
             fields:
-              - {label: "Category (e.g., AI & Automation)", name: "category", widget: "string"}
-              - {label: "Skills (Comma separated)", name: "items", widget: "string"}
+              - {label: "Profile Image", name: "avatar", widget: "image", required: false}
+              - {label: "Main Title (Name)", name: "name", widget: "string"}
+              - {label: "Animated Roles (Comma separated)", name: "roles", widget: "string", hint: "e.g., Cybersecurity, Automation, Innovation"}
+              - {label: "Hero Subtitle", name: "subtitle", widget: "text"}
+              - {label: "Bottom Tags (Comma separated)", name: "tags", widget: "string"}
+          
+          # IDENTITY SECTION
+          - label: "02. Identity (Who Am I)"
+            name: "identity"
+            widget: "object"
+            fields:
+              - {label: "Section Title", name: "title", widget: "string"}
+              - {label: "Main Biography", name: "bio", widget: "text"}
+              - {label: "Projects Built", name: "stat_projects", widget: "string"}
+              - {label: "Leadership Role", name: "stat_leadership", widget: "string"}
+              
+          # GLOBAL LINKS
+          - label: "Global Links & Contact"
+            name: "links"
+            widget: "object"
+            fields:
+              - {label: "Email", name: "email", widget: "string"}
+              - {label: "LinkedIn URL", name: "linkedin", widget: "string"}
+              - {label: "GitHub URL", name: "github", widget: "string"}

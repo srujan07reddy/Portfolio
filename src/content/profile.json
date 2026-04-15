@@ -1,13 +1,20 @@
 {
-  "avatar": "/images/trio.jpeg",
-  "bio": "Dedicated open-source contributor and deep cybersecurity professional...",
-  "github_url": "https://github.com/srujan07reddy",
-  "linkedin_url": "https://linkedin.com/in/srujan-reddy-sandupatla",
-  "email": "srujan07reddy@gmail.com",
-  "skills": [
-    {
-      "category": "AI & Automation",
-      "items": "Prompt Engineering, n8n, Fine-tuning agents"
-    }
-  ]
+  "hero": {
+    "avatar": "",
+    "name": "Srujan Reddy.",
+    "roles": "Cybersecurity, Automation Architect, Innovation Strategy, Open Source Contributor",
+    "subtitle": "Building secure systems, automating workflows, and helping startups turn ideas into scalable digital products.",
+    "tags": "Linux, Python, n8n, Burp Suite, Open Source, Startup Consulting"
+  },
+  "identity": {
+    "title": "01 // IDENTITY",
+    "bio": "I’m a cybersecurity-focused technologist who combines security thinking, Linux workflows, automation systems, and startup problem-solving. I work at the intersection of defense, digital transformation, and innovation, building solutions that are practical, scalable, and business-aware.",
+    "stat_projects": "06+",
+    "stat_leadership": "IEEE Secretary"
+  },
+  "links": {
+    "email": "srujan07reddy@gmail.com",
+    "linkedin": "https://linkedin.com/in/srujan-reddy-sandupatla",
+    "github": "https://github.com/srujan07reddy"
+  }
 }
