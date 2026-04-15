@@ -1,4 +1,10 @@
 {
+  "engine": {
+    "template": "Researcher",
+    "hero_style": "Animated Typing",
+    "theme_color": "Cyan"
+  },
+  
   "hero": {
     "avatar": "",
     "name": "Srujan Reddy.",

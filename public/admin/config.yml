@@ -6,6 +6,7 @@ media_folder: "public/images"
 public_folder: "/images"
 
 collections:
+
   # 1. YOUR PROJECTS (Keep this as it is)
   - name: "projects"
     label: "Research Operations"
