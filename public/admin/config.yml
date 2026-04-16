@@ -1,4 +1,5 @@
-localbackend: true
+local_backend: true
+
 backend:
   name: test-repo
   branch: main
@@ -7,9 +8,104 @@ media_folder: "public/images"
 public_folder: "/images"
 
 collections:
-  # 1. YOUR PROJECTS (Keep this as it is)
+  # TAB 1: MODULAR PAGE BUILDER
+  - name: "settings"
+    label: "📄 Site Content Builder"
+    files:
+      - label: "Homepage Editor"
+        name: "profile"
+        file: "src/content/profile.json"
+        fields:
+          
+          # 1. FIXED HERO SECTION
+          - label: "01. Fixed Hero Section"
+            name: "hero"
+            widget: "object"
+            collapsed: false
+            fields:
+              - {label: "Profile Image", name: "avatar", widget: "image", required: false}
+              - {label: "Main Title (Name)", name: "name", widget: "string"}
+              - {label: "Animated Roles", name: "roles", widget: "string"}
+              - {label: "Hero Subtitle", name: "subtitle", widget: "text"}
+              - {label: "Tech Tags (Comma separated)", name: "tags", widget: "string"}
+
+          # 2. THE DYNAMIC BUILDER 
+          - label: "Page Sections"
+            name: "page_blocks"
+            widget: "list"
+            label_singular: "Section"
+            collapsed: false
+            types:
+              
+              - label: "👤 Identity Section"
+                name: "identity_block"
+                widget: "object"
+                fields:
+                  - {label: "Section Title", name: "title", widget: "string", default: "01 // IDENTITY"}
+                  - {label: "Main Biography", name: "bio", widget: "text"}
+                  - {label: "Projects Built", name: "stat_projects", widget: "string"}
+                  - {label: "Leadership Role", name: "stat_leadership", widget: "string"}
+
+              - label: "🛡️ Domains Section"
+                name: "domains_block"
+                widget: "object"
+                fields:
+                  - {label: "Section Title", name: "title", widget: "string", default: "02 // CORE DOMAINS"}
+                  - label: "Domain List"
+                    name: "list"
+                    widget: "list"
+                    fields:
+                      - {label: "Domain Name", name: "name", widget: "string"}
+                      - {label: "Description", name: "description", widget: "text"}
+
+              - label: "📂 Projects Section"
+                name: "projects_block"
+                widget: "object"
+                fields:
+                  - {label: "Section Title", name: "title", widget: "string", default: "03 // FEATURED PROJECTS"}
+                  - {label: "Section Subtitle", name: "subtitle", widget: "text", required: false}
+                  - label: "Featured Projects List"
+                    name: "projects_list"
+                    widget: "list"
+                    fields:
+                      - {label: "Project Title", name: "name", widget: "string"}
+                      - {label: "Short Description", name: "description", widget: "text"}
+                      - {label: "Tech Stack / Tools", name: "tools", widget: "string"}
+                      - {label: "Project Link (URL)", name: "url", widget: "string", required: false}
+
+              - label: "💼 Consulting Section"
+                name: "consulting_block"
+                widget: "object"
+                fields:
+                  - {label: "Section Title", name: "title", widget: "string", default: "04 // BUSINESS ALIGNMENT"}
+                  - {label: "Headline", name: "headline", widget: "string"}
+                  - {label: "Main Body", name: "body", widget: "text"}
+                  - {label: "Sub Body", name: "sub_body", widget: "text", required: false}
+                  - label: "Action Button"
+                    name: "action_button"
+                    widget: "object"
+                    required: false
+                    fields:
+                      - {label: "Button Text", name: "cta_text", widget: "string", required: true}
+                      - {label: "Button URL", name: "cta_url", widget: "string", required: true}
+
+              - label: "✨ Custom Section (Freeform)"
+                name: "custom_block"
+                widget: "object"
+                fields:
+                  - {label: "Section Title", name: "title", widget: "string", default: "New Section"}
+                  - {label: "Main Content", name: "body", widget: "markdown"}
+                  - label: "Custom Action Button (Optional)"
+                    name: "action_button"
+                    widget: "object"
+                    required: false
+                    fields:
+                      - {label: "Button Text", name: "cta_text", widget: "string", required: true}
+                      - {label: "Button URL", name: "cta_url", widget: "string", required: true}
+
+  # TAB 2: YOUR PROJECTS (Standalone Pages)
   - name: "projects"
-    label: "Research Operations"
+    label: "🚀 Research Operations"
     folder: "src/content/projects"
     create: true
     slug: "{{slug}}"
@@ -19,90 +115,16 @@ collections:
       - {label: "Status", name: "status", widget: "select", options: ["Active", "Completed"]}
       - {label: "Description", name: "description", widget: "text"}
       - {label: "Impact", name: "impact", widget: "string"}
-      - {label: "Core Tools (Comma separated)", name: "tools", widget: "string"}
-# 2. SECTIONED SITE CONTENT
-  - name: "settings"
-    label: "Site Content (Edit Everything)"
+      - {label: "Core Tools", name: "tools", widget: "string"}
+
+  # TAB 3: THEME CONTROLS
+  - name: "theme_settings"
+    label: "🎨 Templates & Themes"
     files:
-      - label: "Landing Page Data"
-        name: "profile"
-        file: "src/content/profile.json"
+      - label: "Theme Configuration"
+        name: "theme"
+        file: "src/content/theme.json"
         fields:
-          - label: "00. Site Engine (Templates & Themes)"
-            name: "engine"
-            widget: "object"
-            fields:
-              - label: "Main Template"
-                name: "template"
-                widget: "select"
-                options: ["Researcher", "Minimalist", "Corporate"]
-              - label: "Hero Sub-Template"
-                name: "hero_style"
-                widget: "select"
-                options: ["Animated Typing", "Static Professional"]
-              - label: "Color Theme"
-                name: "theme_color"
-                widget: "select"
-                options: ["Cyan", "Violet", "Emerald", "Ruby"]
-          # HERO SECTION
-          - label: "01. Hero Section"
-            name: "hero"
-            widget: "object"
-            fields:
-              - {label: "Profile Image", name: "avatar", widget: "image", required: false}
-              - {label: "Main Title (Name)", name: "name", widget: "string"}
-              - {label: "Animated Roles (Comma separated)", name: "roles", widget: "string"}
-              - {label: "Hero Subtitle", name: "subtitle", widget: "text"}
-              - {label: "Bottom Tags (Comma separated)", name: "tags", widget: "string"}
-          
-          # IDENTITY SECTION
-          - label: "02. Identity (Who Am I)"
-            name: "identity"
-            widget: "object"
-            fields:
-              - {label: "Section Title", name: "title", widget: "string"}
-              - {label: "Main Biography", name: "bio", widget: "text"}
-              - {label: "Projects Built", name: "stat_projects", widget: "string"}
-              - {label: "Leadership Role", name: "stat_leadership", widget: "string"}
-              
-          # CORE DOMAINS (NEW)
-          - label: "03. Core Domains"
-            name: "domains"
-            widget: "object"
-            fields:
-              - {label: "Section Title", name: "title", widget: "string"}
-              - label: "Domain List"
-                name: "list"
-                widget: "list"
-                fields:
-                  - {label: "Domain Name", name: "name", widget: "string"}
-                  - {label: "Description", name: "description", widget: "text"}
-
-          # LAB & EXPERIMENTS (NEW)
-          - label: "04. Lab & Experiments"
-            name: "lab"
-            widget: "object"
-            fields:
-              - {label: "Section Title", name: "title", widget: "string"}
-              - {label: "Description", name: "description", widget: "text"}
-              - {label: "Experiment Tags (Comma separated)", name: "tags", widget: "string"}
-
-          # CRACK DEVELOPERS / CONSULTING (NEW)
-          - label: "05. Crack Developers & Consulting"
-            name: "consulting"
-            widget: "object"
-            fields:
-              - {label: "Section Title", name: "title", widget: "string"}
-              - {label: "Headline", name: "headline", widget: "string"}
-              - {label: "Main Body", name: "body", widget: "text"}
-              - {label: "Sub Body", name: "sub_body", widget: "text"}
-              - {label: "CTA Text", name: "cta_text", widget: "string"}
-              
-          # GLOBAL LINKS
-          - label: "Global Links & Contact"
-            name: "links"
-            widget: "object"
-            fields:
-              - {label: "Email", name: "email", widget: "string"}
-              - {label: "LinkedIn URL", name: "linkedin", widget: "string"}
-              - {label: "GitHub URL", name: "github", widget: "string"}
+          - {label: "Main Template", name: "template", widget: "select", options: ["Researcher", "Minimalist", "Corporate"]}
+          - {label: "Hero Sub-Template", name: "hero_style", widget: "select", options: ["Animated Typing", "Static Professional"]}
+          - {label: "Color Theme", name: "theme_color", widget: "select", options: ["Cyan", "Violet", "Emerald", "Ruby"]}

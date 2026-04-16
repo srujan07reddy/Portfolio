@@ -1,21 +1,8 @@
 {
-  "engine": {
-    "template": "Corporate",
-    "hero_style": "Animated Typing",
-    "theme_color": "Cyan"
-  },
-  "hero": {
-    "avatar": "",
-    "name": "Srujan Reddy.",
-    "roles": "Cybersecurity, Automation Architect, Innovation Strategy, Open Source Contributor",
-    "subtitle": "Building secure systems, automating workflows, and helping startups turn ideas into scalable digital products.",
-    "tags": "Linux, Python, n8n, Burp Suite, Open Source, Startup Consulting"
-  },
-  "identity": {
-    "title": "01 // IDENTITY",
-    "bio": "I’m a cybersecurity-focused technologist who combines security thinking, Linux workflows, automation systems, and startup problem-solving. I work at the intersection of defense, digital transformation, and innovation, building solutions that are practical, scalable, and business-aware.",
-    "stat_projects": "06+",
-    "stat_leadership": "IEEE Secretary"
+  "lab": {
+    "title": "04 // OPEN SOURCE & AUTOMATION LAB",
+    "description": "Exploring open ecosystems, automating repetitive workflows, and building practical AI-assisted systems.",
+    "tags": "_n8n Workflow Experiments, _Linux Scripting Practice, _Agent Prompt Engineering, _Community Contributions"
   },
   "domains": {
     "title": "02 // CORE DOMAINS",
@@ -38,10 +25,13 @@
       }
     ]
   },
-  "lab": {
-    "title": "04 // OPEN SOURCE & AUTOMATION LAB",
-    "description": "Exploring open ecosystems, automating repetitive workflows, and building practical AI-assisted systems.",
-    "tags": "_n8n Workflow Experiments, _Linux Scripting Practice, _Agent Prompt Engineering, _Community Contributions"
+  "dashboard": {
+    "gmail_url": "mailto:srujan07reddy@gmail.com",
+    "linkedin_url": "https://linkedin.com/in/srujan-reddy-sandupatla",
+    "github_url": "https://github.com/srujan07reddy",
+    "calendar_embed_url": "https://calendar.google.com/calendar/u/0/r?pli=1",
+    "notebook_url": "https://notebooklm.google.com/",
+    "task_widget_script": "Priority: Secure BIOS Tracker Development"
   },
   "consulting": {
     "title": "05 // BUSINESS ALIGNMENT & CONSULTING",
@@ -50,9 +40,86 @@
     "sub_body": "I help early-stage teams and businesses think through secure product design, digital operations, and innovation strategy—bridging technical execution with real business needs.",
     "cta_text": "Discuss a Project"
   },
+  "page_blocks": [
+    {
+      "type": "identity_block",
+      "title": "01 // IDENTITY",
+      "bio": "I am a Computer Science student specializing in Cyber Security at Jeppiaar University. Beyond academics, I bridge the gap between deep technical research and community leadership. I serve as the Secretary for the IEEE Student Branch and actively tutor junior students in practical cybersecurity. My primary focus lies at the intersection of hardware security, workflow automation, and open-source innovation.",
+      "stat_projects": "6+",
+      "stat_leadership": "IEEE Secretary"
+    },
+    {
+      "type": "domains_block",
+      "title": "02 // CORE DOMAINS",
+      "list": [
+        {
+          "name": "Offensive & Defensive Security",
+          "description": "Proficient in network protocols, Burp Suite, and vulnerability assessments. Expanding into Governance, Risk, and Compliance (GRC) and secure remote access architecture."
+        },
+        {
+          "name": "Firmware-level Protection",
+          "description": "Researching and developing low-level security solutions, including UEFI/BIOS-embedded anti-theft tracking systems that operate independently of the OS."
+        },
+        {
+          "name": "Workflow Automation",
+          "description": "Leveraging tools like n8n, Python scripts, and AI-assisted workflows to build scalable, automated systems and streamline daily research processes."
+        }
+      ]
+    },
+    {
+      "type": "projects_block",
+      "title": "03 // FEATURED PROJECTS",
+      "projects_list": [
+        {
+          "name": "SecureBIOS",
+          "description": "A firmware-level anti-theft system designed to embed security protocols directly into the BIOS/UEFI, ensuring persistence even if the hard drive is wiped or replaced.",
+          "tools": "Firmware, Embedded Systems, C/C++"
+        },
+        {
+          "name": "Enterprise GRC Architecture",
+          "description": "Developed a comprehensive Governance, Risk, and Compliance (GRC) framework and policy dossier for deploying secure remote access solutions.",
+          "tools": "Risk Assessment, Compliance, Policy Drafting"
+        },
+        {
+          "name": "AI-Based OS Architecture",
+          "description": "Actively researching and designing the foundational architecture for a completely new operating system that integrates AI models at the core level.",
+          "tools": "Systems Architecture, AI Integration"
+        }
+      ]
+    },
+    {
+      "type": "consulting_block",
+      "title": "04 // BUSINESS ALIGNMENT",
+      "headline": "Transforming technical complexity into scalable, secure systems.",
+      "body": "Whether it is securing infrastructure at the firmware level, deploying automated n8n workflows, or designing compliance-ready network architectures, I focus on building resilient systems from the ground up.",
+      "sub_body": "I am currently open to collaborating on open-source projects, automation deployments, and leading technical initiatives through the Institution's Innovation Council (IIC).",
+      "action_button": {
+        "cta_text": "Initiate Comms",
+        "cta_url": "srujan07reddy@gmail.com"
+      }
+    }
+  ],
   "links": {
     "email": "srujan07reddy@gmail.com",
     "linkedin": "https://linkedin.com/in/srujan-reddy-sandupatla",
     "github": "https://github.com/srujan07reddy"
+  },
+  "hero": {
+    "avatar": "/images/linkedin-profile.jpeg",
+    "name": "Srujan Reddy",
+    "roles": "Cybersecurity, Automation Architect, Innovation Strategy, Open Source Contributor",
+    "subtitle": "Engineering secure architectures, automating complex workflows, and leading technical initiatives. Currently researching AI-based OS architectures and hardware-level protection.",
+    "tags": "Linux, Python, n8n, Burp Suite, Open Source, Startup Consulting"
+  },
+  "seo": {
+    "title": "Srujan Reddy - Cybersecurity & Automation Portfolio",
+    "description": "Explore the research portfolio of Srujan Reddy, a cybersecurity-focused technologist specializing in secure systems, automation workflows, and innovation strategy.",
+    "keywords": "Cybersecurity, Automation, Innovation, Open Source, Linux, Python, n8n, Burp Suite"
+  },
+  "identity": {
+    "title": "01 // IDENTITY",
+    "bio": "I’m a cybersecurity-focused technologist who combines security thinking, Linux workflows, automation systems, and startup problem-solving. I work at the intersection of defense, digital transformation, and innovation, building solutions that are practical, scalable, and business-aware.",
+    "stat_projects": "06+",
+    "stat_leadership": "IEEE Secretary"
   }
 }

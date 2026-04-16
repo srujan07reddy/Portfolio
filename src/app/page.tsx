@@ -1,35 +1,63 @@
-"use client";
+import profileData from '../content/profile.json';
+import themeData from '../content/theme.json';
 
-import { useEffect, useState } from "react";
-import siteData from "../content/profile.json";
-import ResearcherTemplate from "../templates/ResearcherTemplate";
-import MinimalistTemplate from "../templates/MinimalistTemplate";
-import CorporateTemplate from "../templates/CorporateTemplate";
+import HeroSection from '../components/HeroSection';
+import IdentitySection from '../components/IdentitySection';
+import DomainsSection from '../components/DomainsSection';
+import ProjectsSection from '../components/ProjectsSection';
+import ConsultingSection from '../components/ConsultingSection';
+import CustomSection from '../components/CustomSection';
 
 export default function Home() {
-  const [mounted, setMounted] = useState(false);
+  const blocks = profileData.page_blocks || [];
+  const themeColor = themeData.theme_color || "Cyan";
+  const template = themeData.template || "Researcher";
 
-  // Theme Engine Color Mapping
-  const themeMap: any = {
-    Cyan: { text: "text-cyan-400", accent: "bg-cyan-500", border: "border-cyan-500/30", glow: "shadow-[0_0_20px_rgba(6,182,212,0.2)]" },
-    Violet: { text: "text-purple-400", accent: "bg-purple-500", border: "border-purple-500/30", glow: "shadow-[0_0_20px_rgba(168,85,247,0.2)]" },
-    Emerald: { text: "text-emerald-400", accent: "bg-emerald-500", border: "border-emerald-500/30", glow: "shadow-[0_0_20px_rgba(16,185,129,0.2)]" },
-    Ruby: { text: "text-red-400", accent: "bg-red-500", border: "border-red-500/30", glow: "shadow-[0_0_20px_rgba(239,68,68,0.2)]" }
+  // Template Master Styles
+  const templateClasses: Record<string, string> = {
+    Researcher: "bg-[#050505] text-gray-300 font-mono",
+    Minimalist: "bg-white text-black font-sans",
+    Corporate: "bg-slate-50 text-slate-900 font-serif"
   };
 
-  const activeTheme = themeMap[siteData.engine.theme_color] || themeMap.Cyan;
+  const activeSkin = templateClasses[template] || templateClasses.Researcher;
 
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
+  const renderBlock = (block: any, index: number) => {
+    const rawTitle = block.title || "Section";
+    const cleanName = rawTitle.includes("//") ? rawTitle.split("//")[1].trim() : rawTitle;
+    const sectionId = cleanName.toLowerCase().replace(/\s+/g, "-");
+
+    const props = { 
+      key: index, 
+      id: sectionId, 
+      data: block, 
+      themeColor, 
+      template 
+    };
+
+    switch (block.type) {
+      case 'identity_block': return <IdentitySection {...props} />;
+      case 'domains_block': return <DomainsSection {...props} />;
+      case 'projects_block': return <ProjectsSection {...props} />;
+      case 'consulting_block': return <ConsultingSection {...props} />;
+      case 'custom_block': return <CustomSection {...props} />;
+      default: return null;
+    }
+  };
 
   return (
-    <>
-      {/* Logic to switch between templates based on CMS selection */}
-      {siteData.engine.template === "Researcher" ? (
-        <ResearcherTemplate siteData={siteData} activeTheme={activeTheme} />
-      ) : (
-        <MinimalistTemplate siteData={siteData} activeTheme={activeTheme} />
-      )}
-    </>
+    <main className={`min-h-screen transition-colors duration-700 ${activeSkin}`}>
+      <div className="max-w-6xl mx-auto px-6 pb-24">
+        
+        {/* HERO SECTION */}
+        <HeroSection data={profileData.hero} themeColor={themeColor} template={template} />
+
+        {/* DYNAMIC CONTENT */}
+        <div className="flex flex-col gap-32">
+          {blocks.map((block, index) => renderBlock(block, index))}
+        </div>
+        
+      </div>
+    </main>
   );
 }
